@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jubilant-engine
+  labels:
+    app: jubilant-engine
+spec:
+  replicas: 2  # adjust based on scaling needs
+  selector:
+    matchLabels:
+      app: jubilant-engine
+  template:
+    metadata:
+      labels:
+        app: jubilant-engine
+    spec:
+      containers:
+        - name: your-app-container
+          image: peterjbishop/jubilant-engine:latest  # image (like peterjbishop/jubilant-engine:latest)
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080  # 3000 for Node.js, 8080 for Go
+          env:
+            - name: ENVIRONMENT
+              value: "production"
+            - name: PORT
+              value: "8080"  # or "3000" for Node.js
+            # Add any other environment variables you need here
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "250m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+          livenessProbe:
+            httpGet:
+              path: /health  # make sure your app has a health endpoint
+              port: 8080
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 10
+      restartPolicy: Always

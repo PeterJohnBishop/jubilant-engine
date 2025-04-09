@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: your-app-name
+  labels:
+    app: your-app-name
+spec:
+  replicas: 2  # adjust based on scaling needs
+  selector:
+    matchLabels:
+      app: your-app-name
+  template:
+    metadata:
+      labels:
+        app: your-app-name
+    spec:
+      containers:
+        - name: your-app-container
+          image: your-dockerhub-username/your-app-image:latest  # image (like peterjbishop/jubilant-engine:latest)
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080  # change to 3000 for Node.js, or 8080 for Go, etc.
+          env:
+            - name: ENVIRONMENT
+              value: "production"
+            - name: PORT
+              value: "8080"  # or "3000" for Node.js
+            # Add any other environment variables you need here
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "250m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+          livenessProbe:
+            httpGet:
+              path: /health  # make sure your app has a health endpoint
+              port: 8080
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 10
+      restartPolicy: Always
