@@ -2,11 +2,17 @@
 
 # notes
 
+install homebrew
+brew install minikube
+install docker engine/docker dekstop
+
 docker build -t peterjbishop/jubilant-engine:latest . 
 <!-- build and tag image  -->
 
 docker push peterjbishop/jubilant-engine 
 <!-- should appear in Docker under Images -->
+
+# installation
 
 docker pull peterjbishop/jubilant-engine 
 
