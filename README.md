@@ -62,6 +62,10 @@ minikube status
 
 minikube start
 
+kubectl apply -f deployment_postgres.yaml <!-- if changes >
+
+kubectl apply -f deployment_go.yaml <!-- if changes >
+
 kubectl expose deployment jubilant-engine --type=NodePort --port=8080
 
 minikube service jubilant-engine
