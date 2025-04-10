@@ -1,6 +1,6 @@
 # jubilant-engine
 
-# notes
+# docker container and kubernetes | creating a server container and testing in kubernetes cluster
 
 install homebrew
 brew install minikube
@@ -41,3 +41,29 @@ kubectl expose deployment jubilant-engine --type=NodePort --port=8080
 
 minikube service jubilant-engine
 <!-- starts kubernetes pods and exposes the traffic -->
+
+# docker compose | creating a server container with postgres container and testing in kubernetes cluster
+
+docker-compose down
+
+PSQL_USER={username} PSQL_PASSWORD={password} PSQL_DBNAME={dbname} docker-compose up --build
+<!-- to run in Docker with env variables set -->
+
+docker push peterjbishop/jubilant-engine:latest
+
+kubectl create secret generic db-secret \
+  --from-literal=PSQL_USER={username} \
+  --from-literal=PSQL_PASSWORD={password} \
+  --from-literal=PSQL_DBNAME={dbname} \
+  -n {your-namespace}
+<!-- to set env variables in kubernetes -->
+
+minikube status
+
+minikube start
+
+kubectl expose deployment jubilant-engine --type=NodePort --port=8080
+
+minikube service jubilant-engine
+
+kubectl get pods
