@@ -51,6 +51,8 @@ PSQL_USER={username} PSQL_PASSWORD={password} PSQL_DBNAME={dbname} docker-compos
 
 docker push peterjbishop/jubilant-engine:latest
 
+kubectl rollout restart deployment jubilant-engine
+
 kubectl create secret generic db-secret \
   --from-literal=PSQL_USER={username} \
   --from-literal=PSQL_PASSWORD={password} \
@@ -62,9 +64,10 @@ minikube status
 
 minikube start
 
-kubectl apply -f deployment_postgres.yaml <!-- if changes >
-
-kubectl apply -f deployment_go.yaml <!-- if changes >
+<!-- if changes -->
+kubectl apply -f deployment_postgres.yaml 
+<!-- if changes -->
+kubectl apply -f deployment_go.yaml 
 
 kubectl expose deployment jubilant-engine --type=NodePort --port=8080
 

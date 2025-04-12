@@ -23,7 +23,7 @@ WORKDIR /root/
 # copy the binary from the builder stage to the current stage
 COPY --from=builder /app/main .
 # copy the .env file to the current stage
-#COPY .env .
+COPY .env .
 
 # set the permissions for the main binary
 RUN chmod +x /root/main

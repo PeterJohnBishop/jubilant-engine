@@ -15,7 +15,7 @@ spec:
         app: jubilant-engine
     spec:
       containers:
-        - name: your-app-container
+        - name: jubilant-engine
           image: peterjbishop/jubilant-engine:latest  # image (like peterjbishop/jubilant-engine:latest)
           imagePullPolicy: Always
           ports:
