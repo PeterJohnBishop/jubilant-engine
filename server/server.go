@@ -45,8 +45,7 @@ func addBaseRoutes(mux *http.ServeMux, db *sql.DB) {
 		// Health check endpoint
 		response := map[string]interface{}{
 			"message": "Welcome to Jubilant-Engine Status Check!",
-			"image":   "peterjbishop/jubilant-engine:latest",
-			"volume":  "postgres"}
+		}
 
 		jsonResponse, err := json.Marshal(response)
 		if err != nil {

@@ -5,7 +5,7 @@ metadata:
   labels:
     app: jubilant-engine
 spec:
-  replicas: 2  # adjust based on scaling needs
+  replicas: 3  # adjust based on scaling needs
   selector:
     matchLabels:
       app: jubilant-engine

@@ -51,7 +51,6 @@ PSQL_USER={username} PSQL_PASSWORD={password} PSQL_DBNAME={dbname} docker-compos
 
 docker push peterjbishop/jubilant-engine:latest
 
-kubectl rollout restart deployment jubilant-engine
 
 kubectl create secret generic db-secret \
   --from-literal=PSQL_USER={username} \
@@ -60,10 +59,15 @@ kubectl create secret generic db-secret \
   -n {your-namespace}
 <!-- to set env variables in kubernetes -->
 
+kubectl create configmap db-config --from-literal=PSQL_DBNAME=postgres
+
 minikube status
 
 minikube start
 
+kubectl delete deployments --all
+
+kubectl delete pods -l app=jubilant-engine
 <!-- if changes -->
 kubectl apply -f deployment_postgres.yaml 
 <!-- if changes -->
